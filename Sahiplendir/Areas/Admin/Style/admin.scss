@@ -1,0 +1,20 @@
+﻿$primary: #BFD51B;
+$enable-rounded : false;
+$font-size-base: .85rem;
+
+@import "../../../wwwroot/lib/admin-lte/build/scss/adminlte.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.field-validation-error {
+    @extend .text-danger;
+}
+[class*="sidebar-light"] .brand-link {
+    border-bottom: 1px solid #BFD51B;
+}
+
+.card-header {
+    border-bottom: 1px solid #BFD51B;
+}

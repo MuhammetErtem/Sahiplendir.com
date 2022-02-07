@@ -1,0 +1,9 @@
+﻿.validation-summary-errors ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.field-validation-error {
+    color: red;
+}

@@ -1,0 +1,53 @@
+﻿A- Site Yönetim Paneli
+		Reyon(CRUD)
+			Kategori (CRUD=Oluşturma-Düzenleme-Listeleme-Silme)
+				Ürün 
+					Yuva
+					Mama
+					Genel Bakım
+					
+
+				Hayvan(CRUD)
+					Kedi
+					Köpek
+					Tavşan
+					Hamster
+					Kuş
+					Akvaryum Balıkları
+					Diğerleri
+
+				Aksesuar
+
+				Blog
+					Eğitim
+
+		Banner(CRUD)
+		Üyeler(Sadece listeleri var)
+
+B- Site Önyüz
+
+		Ana Sayfa
+			Hayvan Kategori
+					Kedi
+					Köpek
+					Tavşan
+					Hamster
+					Akvaryum Balıkları
+					Diğerleri
+			Hayvan Detay
+			Ürün Kategori
+					Yuva
+					Mama
+					Genel Bakım
+					Eğitim
+					Aksesuar
+			Blog
+			-Hayvan eğitim platformu
+			-Hayvan sahiplerinin sohbet edebileceği alan
+			-Hayvanlara uzman veteriner tavsiyeleri
+
+		Sepet(Mama bağışı vs seçenekler olacak),
+		Sahiplenme(SatınAlma)
+		Üyelik( Kayıt,Login, Hesabım, Sepet)
+
+

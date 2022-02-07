@@ -1,0 +1,84 @@
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+
+@model IEnumerable<Brand>
+@{
+}
+<div class="p-2 border bg-light text-right">
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="fa fa-plus">
+            Yeni Kayıt
+        </i>
+    </a>
+</div>
+<div class="card card-primary">
+    <div class="card-header">
+        <div class="card-title">Marka Listesi</div>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Logo
+                    </th>
+                    <th>
+                        Ad
+                    </th>
+                    <th>
+                        Durum
+                    </th>
+                    <th>
+                        Tarih
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.Image" width="50" height="50" />
+                        </td>
+                        <td>@item.Name (@item.Products.Count)</td>
+                        <td>
+                            @if (item.Enabled)
+                            {
+                                <span class="text-success">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            }
+                        </td>
+                        <td>
+                            @item.DateCreated.ToShortDateString()
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger delete-btn">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-warning">
+                                <i class="fa fa-edit"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_RemoveConfirmationPartial" />
+}
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), Extensions.PagedListRenderOptions)

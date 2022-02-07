@@ -1,0 +1,68 @@
+﻿@model LoginViewModel
+@{
+    Layout = "_LayoutEmpty";
+}
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">Admin Girişi</h4>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-2">
+                <i class="fa fa-5x fa-house-user"></i>
+            </div>
+            @if (!ViewContext.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+            }
+            <form method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="form-group">
+                    <label asp-for="EMail"></label>
+                    <input asp-for="EMail" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="EMail"></span> <!-- Hata olduğunda bu görünür olur -->
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password"></span> <!-- Hata olduğunda bu görünür olur -->
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="IsPersistent" class="custom-control-input">
+                        <label class="custom-control-label" for="IsPersistent">Beni hatırla</label>
+                    </div>
+                </div>
+                <hr />
+                <button class="btn btn-primary">Giriş</button>
+                <hr />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Register">Yeni Üyelik</a>
+                    <a asp-action="ResetPassword">Parola Yenile</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        jQuery.validator.setDefaults({
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    </script>
+}
