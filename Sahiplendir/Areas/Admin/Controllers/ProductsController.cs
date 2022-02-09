@@ -17,6 +17,7 @@ namespace Sahiplendir.Areas.Admin.Controllers
     {
         private readonly AppDbContext context;
         private readonly UtilsService utilsService;
+        private readonly string entityName = "Ürün";
 
         public ProductsController(AppDbContext context, UtilsService utilsService)
         {
@@ -28,7 +29,9 @@ namespace Sahiplendir.Areas.Admin.Controllers
         private async Task PopulateDropdowns()
         {
             ViewBag.Categories = new SelectList(await context.Categories.Include(p => p.Rayon).OrderBy(p => p.Name).ToListAsync(), "Id", "Name", null, "Rayon.Name");
-            ViewBag.Brands = new SelectList(await context.Brands.OrderBy(p => p.Name).ToListAsync(), "Id", "Name");
+            //Kategorisi için liste oluşturduk.
+            ViewBag.Brands = new SelectList(await context.Brands.OrderBy(p => p.Name).ToListAsync(), "Id", "Name"); 
+            //Markanın ismine göre sıraladık ve ondan bir liste oluşturduk.Bize ismi görünecek kayıt ederken Id si kayıt olacak.
         }
 
         public IActionResult Index(int? page)
@@ -62,10 +65,13 @@ namespace Sahiplendir.Areas.Admin.Controllers
             model.Price = decimal.Parse(model.PriceText, CultureInfo.CreateSpecificCulture("tr-TR")); //Giren kullanıcının pc'sini türkçe kültürüne çevirerek göster.
 
             model.DateCreated = DateTime.Now;
+
+
             context.Products.Add(model);
             try
             {
                 await context.SaveChangesAsync();
+                TempData["success"] = $"{entityName} ekleme işlemi başarıyla tamamlanmıştır!";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -78,7 +84,8 @@ namespace Sahiplendir.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             await PopulateDropdowns();
-            var model = await context.Products.FindAsync(id);
+            var model = await context.Products.Include(p=>p.ProductImages).SingleAsync(p=>p.Id == id);
+            model.PriceText = model.Price.ToString("n2",CultureInfo.CreateSpecificCulture("tr-TR"));
             return View(model);
         }
 
@@ -91,6 +98,7 @@ namespace Sahiplendir.Areas.Admin.Controllers
             try
             {
                 await context.SaveChangesAsync();
+                TempData["success"] = $"{entityName} güncelleme işlemi başarıyla tamamlanmıştır!";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)

@@ -24,8 +24,6 @@
                     </select>
                     <span asp-validation-for="CategoryId"></span>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <label asp-for="BrandId"></label>
                     <select class="custom-select" asp-for="BrandId" asp-items="ViewBag.Brands as SelectList">
@@ -40,19 +38,84 @@
                     <input class="form-control" asp-for="Name">
                     <span asp-validation-for="Name"></span>
                 </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-12 col-md-3">
-                    <label asp-for="Price"></label>
-                    <input class="form-control" asp-for="Price">
-                    <span asp-validation-for="Price"></span>
+                    <label asp-for="PriceText"></label>
+                    <input class="form-control" asp-for="PriceText">
+                    <span asp-validation-for="PriceText"></span>
                 </div>
-            </div>
-            <div class="form-row">
+
                 <div class="form-group col-12 col-md-3">
                     <label asp-for="DiscountRate"></label>
                     <input class="form-control" asp-for="DiscountRate">
                     <span asp-validation-for="DiscountRate"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12 col-md-6">
+                        <div>
+                            <img id="previewImage" src="~/content/images/no-image.png" width="120" height="120" class="p-2 border" />
+                        </div>
+                        <label asp-for="Image"></label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="image/*" id="ImageFile" name="ImageFile">
+                            <label class="custom-file-label" for="ImageFile" data-browse="Gözat">Görsel dosyası seçiniz</label>
+                        </div>
+                        <div class="py-2">
+                            <div class="alert alert-light">
+                                <div class="d-flex flex-row">
+                                    <div class="px-2">
+                                        <i class="fa fa-info-circle fa-2x"></i>
+                                    </div>
+                                    <div class="px-2">
+                                        <ul class="list-unstyled">
+                                            <li>En iyi görünüm için 800&times;800 ebadında görseller yükleyiniz</li>
+                                            <li>Yüklenen görseller otomatik olarak 800&times;800 ebadına getirilecektir.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12 col-md-6">
+                        <div>
+                            <img id="previewImage" src="~/content/images/no-image.png" width="120" height="120" class="p-2 border" />
+                        </div>
+                        <div id="previewGallery">
+                        </div>
+                        <label asp-for="ProductImages"></label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="image/*" multiple id="ProductImages" name="ImageFiles">
+                            <label class="custom-file-label" for="ProductImages" data-browse="Gözat">Görsel dosyaları seçiniz</label>
+                        </div>
+                        <div class="py-2">
+                            <div class="alert alert-light">
+                                <div class="d-flex flex-row">
+                                    <div class="px-2">
+                                        <i class="fa fa-info-circle fa-2x"></i>
+                                    </div>
+                                    <div class="px-2">
+                                        <ul class="list-unstyled">
+                                            <li>En iyi görünüm için 800&times;800 ebadında görseller yükleyiniz</li>
+                                            <li>Yüklenen görseller otomatik olarak 800&times;800 ebadına getirilecektir.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-12">
+                    <label asp-for="Descriptions"></label>
+                    <textarea class="form-control" asp-for="Descriptions"></textarea>
+                    <span asp-validation-for="Descriptions"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label asp-for="DateCreated" class="control-label"></label>
+                    <input asp-for="DateCreated" class="form-control" />
+                    <span asp-validation-for="DateCreated" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
@@ -63,15 +126,38 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
         </div>
     </div>
 </form>
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script>
+        $(() => {
+            bsCustomFileInput.init(); //Yüklenen resmin ismini resmin altına yazıyor.
+            $('#ImageFile').change((e) => {
+                const r = new FileReader();
+                r.onloadend = (evt) => {
+                    $('#previewImage').attr('src', evt.currentTarget.result);
+                };
+                r.readAsDataURL($('#ImageFile')[0].files[0]);
+            }); //Resim yükleme yapar. 53.Satırı kopyalayıp kullanılır.
+            $('#ProductImages').change((e) => {
+                $('#previewGallery').html('');
+                for (var i = 0; i < $('#ProductImages')[0].files.length; i++) {
+                    const r = new FileReader();
+                    r.onloadend = (evt) => {
+                        $('#previewGallery').append(`<img src="${evt.currentTarget.result}" width="80" height="80" class="p-2 border" />`);
+                    };
+                    r.readAsDataURL($('#ProductImages')[0].files[i]);
+                }
+            }); //Yüklenen resmi değiştirmek istediğinde öncekini silip yerine yenilerini eklemeye yarıyor. 78.Satırı kopyalayıp kullanılır.
+            $('#Descriptions').summernote({
+                height: 200
+            }); //Not eklememizi sağlar 107-136-137. satırlar ile birlikte eklenir.
+        });
+    </script>
 }

@@ -1,11 +1,15 @@
-﻿@model Category
-<form method="post">
+﻿@model Product
+
+<form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="DateCreated" />
+    <input type="hidden" asp-for="Image" /> <!-- Bunu koymazsak değişiklik yaparken Resmi siler. Güncelleme doğru çalışmaz -->
+    <input type="hidden" asp-for="Price" /> <!-- Bunu koymazsak değişiklik yaparken Fiyatı siler. Güncelleme doğru çalışmaz -->
+
     <div class="card card-default card-outline">
         <div class="card-header">
             <div class="card-title">
                 <i class="fa fa-pencil"></i>
-                Kategori Güncelleme
+                Ürün Güncelleme
             </div>
             <div class="card-tools">
                 <a asp-action="Index" class="btn btn-default">İptal</a>
@@ -18,18 +22,120 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
-                    <label asp-for="RayonId"></label>
-                    <select class="custom-select" asp-for="RayonId" asp-items="ViewBag.Categories as SelectList">
+                    <label asp-for="CategoryId"></label>
+                    <select class="custom-select" asp-for="CategoryId" asp-items="ViewBag.Categories as SelectList">
                         <option selected disabled>[Seçiniz]</option>
                     </select>
-                    <span asp-validation-for="RayonId"></span>
+                    <span asp-validation-for="CategoryId"></span>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label asp-for="BrandId"></label>
+                    <select class="custom-select" asp-for="BrandId" asp-items="ViewBag.Brands as SelectList">
+                        <option selected disabled>[Seçiniz]</option>
+                    </select>
+                    <span asp-validation-for="BrandId"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <label asp-for="Name"></label>
-                    <input class="form-control" asp-for="Name" autofocus>
+                    <input class="form-control" asp-for="Name">
                     <span asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group col-12 col-md-3">
+                    <label asp-for="PriceText"></label>
+                    <input class="form-control" asp-for="PriceText">
+                    <span asp-validation-for="PriceText"></span>
+                </div>
+
+                <div class="form-group col-12 col-md-3">
+                    <label asp-for="DiscountRate"></label>
+                    <input class="form-control" asp-for="DiscountRate">
+                    <span asp-validation-for="DiscountRate"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <div>
+                        <img id="previewImage" src="@Model.SafeImage" width="120" height="120" class="p-2 border" />      <!-- Yüklenen resim varsa bunu gösterir.-->
+                    </div>
+                    <label asp-for="Image"></label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept="image/*" id="ImageFile" name="ImageFile">
+                        <label class="custom-file-label" for="ImageFile" data-browse="Gözat">Görsel dosyası seçiniz</label>
+                    </div>
+                    <div class="py-2">
+                        <div class="alert alert-light">
+                            <div class="d-flex flex-row">
+                                <div class="px-2">
+                                    <i class="fa fa-info-circle fa-2x"></i>
+                                </div>
+                                <div class="px-2">
+                                    <ul class="list-unstyled">
+                                        <li>En iyi görünüm için 800&times;800 ebadında görseller yükleyiniz</li>
+                                        <li>Yüklenen görseller otomatik olarak 800&times;800 ebadına getirilecektir.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12 col-md-6">
+                    @if (Model.ProductImages.Any())
+                    {
+                    <div class="p-2 border d-flex flex-wrap">
+                        @foreach (var productImage in Model.ProductImages)
+                        {
+                            <div class="position-relative d-inline-block">
+                                <label class="position-absolute m-1 text-danger" style="right: 0;">
+                                    <input type="checkbox" value="@productImage.Id" name="ImagesToDeleted" />
+                                    Sil
+                                </label>
+                                <img src="@productImage.Image" width="120" height="120" class="p-2 border" />
+                            </div>
+                        }
+                    </div>
+                    }
+                    <div>
+                        <img id="previewImage" src="@Model.SafeImage" width="120" height="120" class="p-2 border" />      <!-- Yüklenen resim varsa bunu gösterir.-->
+                    </div>
+                    <div id="previewGallery">
+                    </div>
+                    <label asp-for="ProductImages"></label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" accept="image/*" multiple id="ProductImages" name="ImageFiles">
+                        <label class="custom-file-label" for="ProductImages" data-browse="Gözat">Görsel dosyaları seçiniz</label>
+                    </div>
+                    <div class="py-2">
+                        <div class="alert alert-light">
+                            <div class="d-flex flex-row">
+                                <div class="px-2">
+                                    <i class="fa fa-info-circle fa-2x"></i>
+                                </div>
+                                <div class="px-2">
+                                    <ul class="list-unstyled">
+                                        <li>En iyi görünüm için 800&times;800 ebadında görseller yükleyiniz</li>
+                                        <li>Yüklenen görseller otomatik olarak 800&times;800 ebadına getirilecektir.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-12">
+                    <label asp-for="Descriptions"></label>
+                    <textarea class="form-control" asp-for="Descriptions"></textarea>
+                    <span asp-validation-for="Descriptions"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+                    <label asp-for="DateCreated" class="control-label"></label>
+                    <input asp-for="DateCreated" class="form-control" />
+                    <span asp-validation-for="DateCreated" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
@@ -40,15 +146,38 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
         </div>
     </div>
 </form>
 
 @section scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+    <script>
+        $(() => {
+            bsCustomFileInput.init();
+            $('#ImageFile').change((e) => {
+                const r = new FileReader();
+                r.onloadend = (evt) => {
+                    $('#previewImage').attr('src', evt.currentTarget.result);
+                };
+                r.readAsDataURL($('#ImageFile')[0].files[0]);
+            });
+            $('#ProductImages').change((e) => {
+                $('#previewGallery').html('');
+                for (var i = 0; i < $('#ProductImages')[0].files.length; i++) {
+                    const r = new FileReader();
+                    r.onloadend = (evt) => {
+                        $('#previewGallery').append(`<img src="${evt.currentTarget.result}" width="80" height="80" class="p-2 border" />`);
+                    };
+                    r.readAsDataURL($('#ProductImages')[0].files[i]);
+                }
+            });
+            $('#Descriptions').summernote({
+                height: 200
+            });
+        });
+    </script>
 }
