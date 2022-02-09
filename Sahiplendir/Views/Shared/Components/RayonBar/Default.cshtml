@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Rayon>
+@{
+    <ul class="navbar-nav flex-grow-1">
+        @foreach (var rayon in Model)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    @rayon.Name
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @foreach (var category in rayon.Categories)
+                    {
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Category" asp-route-id="@category.Id">@category.Name</a>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+}

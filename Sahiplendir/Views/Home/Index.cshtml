@@ -2,7 +2,58 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="slider" class="row mb-4" style="width:1140px; height: 377px; max-height: 377px; overflow: hidden;">
+    @foreach (var banner in ViewBag.Banners as IEnumerable<Banner>)
+    {
+        <div class="col-12 d-none position-absolute" style="width:1140px; height: 377px; max-height: 377px; overflow: hidden;">
+            <img src="@banner.SafeImage" class="w-100" />
+        </div>
+    }
 </div>
+<div class="row row-cols-1 row-cols-md-4">
+    @foreach (var product in ViewBag.FeaturedProducts as IEnumerable<Product>)
+    {
+        <div class="col-12 col-md-2 mb-2">
+            <div class="card">
+                <img src="@product.SafeImage" class="card-img-top" alt="@product.Name" />
+                <div class="card-body">
+                    <h5 class="card-title" style="height:40px; overflow: hidden;">@product.Name</h5>
+                    <div style="height:40px; overflow: hidden;">
+                        @if (product.DiscountRate > 0)
+                        {
+                            <span class="text-muted h-10" style="text-decoration : line-through;">@product.Price.ToString("c2") ₺</span>
+                            <div class="bg-success text-white h9 position-absolute d-inline m-2 p-2" style="right:0">
+                                %@product.DiscountRate
+                                <div class="text-center" style="font-size: .50rem;">indirimli</div>
+                            </div>
+                        }
+
+                        <div class="text-info h4">@product.DiscountedPrice.ToString("c2") ₺</div>
+                    </div>
+                    <div class="text-center p-2">
+                        <a class="btn btn-warning" href="#">
+                            <i class="fa fa-shopping-basket">Sepete Ekle</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts{
+    <script>
+        $(() => {
+            var l = $('#slider div');
+            var index = 0;
+            switchImage();
+            function switchImage() {
+                $(l).addClass('d-none');
+                $(l[index]).removeClass('d-none');
+                index++;
+                index %= l.length;
+                setTimeout(switchImage, 2000);
+            }
+        });
+    </script>
+}
+
