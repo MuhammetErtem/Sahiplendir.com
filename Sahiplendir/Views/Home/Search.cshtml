@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "Arama Sonuçları";
+}
+@if (Model.Any())
+{
+
+    <h2>
+        <b>"@Context.Request.Query["keyword"]"</b> ile ilgili @Model.Count().ToString("n0") adet sonuç bulundu.
+    </h2>
+
+
+    <div class="row row-cols-1 row-cols-md-3">
+        @foreach (var product in Model)
+        {
+            <partial name="_ProductBoxPartial" model="product" />
+        }
+    </div>
+}
+else
+{
+    <div class="p-5 d-flex flex-column align-items-center">
+        <i class="fa fa-frown fa-5x"></i>
+        <h4>Üzgünüz...</h4>
+        <p>Arama kriterlerinize uygun ürün bulunamadı!</p>
+    </div>
+}

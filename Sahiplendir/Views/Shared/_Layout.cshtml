@@ -12,8 +12,10 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sahiplendir</a>
+                
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/content/images/logo.png" style="width:50px;height: 40px" />
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,6 +23,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @await Component.InvokeAsync("RayonBar")
                 </div>
+                <form asp-action="Search" method="get" class="form-inline my-2 my-lg-0">
+                    <div class="input-group">
+                        <input type="search" name="keyword" placeholder="ürün, kategori, marka ara" value="@Context.Request.Query["keyword"]" class="form-control" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </nav>
     </header>

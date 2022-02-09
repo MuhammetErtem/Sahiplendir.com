@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Sahiplendir.Controllers
@@ -33,6 +34,13 @@ namespace Sahiplendir.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Search(string keyword)
+        {
+            var keywords = Regex.Split(keyword, @"\s+").ToList();
+            var model = context.Products.Include(p => p.Brand).Include(p => p.Category).AsEnumerable().Where(p => keywords.Any(q => p.Name.ToLower().Contains(q.ToLower()))).ToList();
+            return View(model);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
