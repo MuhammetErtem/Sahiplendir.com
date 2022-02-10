@@ -81,6 +81,26 @@ namespace Sahiplendir
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints
+                .MapControllerRoute(
+                    name: "category",
+                    pattern: "{name}-k-{id}.html",
+                    defaults:new {controller = "Home" , action="Category"}
+                    );
+                endpoints
+                .MapControllerRoute(
+                    name: "product",
+                    pattern: "{name}-u-{id}.html",
+                    defaults: new { controller = "Home", action = "ProductDetail" }
+                    );
+                endpoints
+                .MapControllerRoute(
+                    name: "brand",
+                    pattern: "{name}-m-{id}.html",
+                    defaults: new { controller = "Home", action = "Brands" }
+                    );
+
+
                 endpoints.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

@@ -17,6 +17,8 @@
     <None Include="Areas\Admin\Views\Banners\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Banners\Index.cshtml" />
     <None Include="compilerconfig.json" />
+    <None Include="Views\Shared\Components\BrandsBar\Default.cshtml" />
+    <None Include="Views\Shared\Components\UserBar\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

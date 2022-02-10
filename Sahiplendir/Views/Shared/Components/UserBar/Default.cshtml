@@ -1,0 +1,39 @@
+﻿@model User
+@if (Model != null)
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            @Model.Name
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" asp-controller="Account" asp-action="Profile">
+                <i class="fa fa-cog fa-fw mr-2"></i>
+                Profilim
+            </a>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Orders">
+                <i class="fa fa-shopping-bag fa-fw mr-2"></i>
+                Siparişlerim
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-controller="Account" asp-action="Logout">
+                <i class="fa fa-power-off fa-fw mr-2"></i>
+                Çıkış
+            </a>
+        </div>
+    </li>
+}
+else
+{
+    <li class="nav-item active">
+        <a class="nav-link" asp-controller="Account" asp-action="Register">
+            <i class="fa fa-user-plus"></i>
+            Yeni Üyelik
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" asp-controller="Account" asp-action="Login">
+            <i class="fa fa-sign-in-alt"></i>
+            Kullanıcı Girişi
+        </a>
+    </li>
+}

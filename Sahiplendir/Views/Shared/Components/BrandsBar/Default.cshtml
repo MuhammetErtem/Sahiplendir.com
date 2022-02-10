@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Brand>
+
+<div class="py-5 d-flex flex-wrap justify-content-around">
+    @foreach (var brand in Model)
+    {
+        <div class="p-2">
+            <a asp-route="brand" asp-route-name="@brand.Name.ToSafeUrl()" asp-route-id="@brand.Id">
+                <img src="@brand.SafeImage" style="width:60px;height:40px; max-height: 40px; max-width:80px" />
+            </a>
+        </div>
+    }
+</div>

@@ -39,11 +39,16 @@ namespace Sahiplendir.Controllers
             var model = await context.Brands.Include(p => p.Products).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
             return View(model);
         }
-
+        
         public async Task<IActionResult> Search(string keyword)
         {
             var keywords = Regex.Split(keyword, @"\s+").ToList();
             var model = context.Products.Include(p => p.Brand).Include(p => p.Category).AsEnumerable().Where(p => keywords.Any(q => p.Name.ToLower().Contains(q.ToLower()))).ToList();
+            return View(model);
+        }
+        public async Task<IActionResult> ProductDetail(int id)
+        {
+            var model = await context.Products.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
             return View(model);
         }
 

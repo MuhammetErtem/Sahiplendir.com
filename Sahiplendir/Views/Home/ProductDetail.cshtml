@@ -1,0 +1,42 @@
+﻿@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row">
+    <div class="col-12 col-md-6 p-2 border-right">
+        <img src="@Model.SafeImage" class="img-fluid" />
+    </div>
+    <div class="col-12 col-md-6 p-2">
+        <h2>@Model.Name</h2>
+        <div>
+            <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
+                @Model.Brand.Name
+            </a>
+        </div>
+        <div style="height: 70px; overflow: hidden;">
+            @if (Model.DiscountRate > 0)
+            {
+                <span class="text-muted" style="text-decoration : line-through;">@Model.Price.ToString("c2")</span>
+                <div class="bg-success text-white h3 position-absolute d-inline m-2 p-2" style="right:0">
+                    %@Model.DiscountRate
+                    <div class="text-center" style="font-size: .75rem;">İNDİRİM</div>
+                </div>
+            }
+            <div class="text-info h4">@Model.DiscountedPrice.ToString("c2")</div>
+        </div>
+        <div class="text-center p-2">
+            <a class="btn btn-warning" href="#">
+                <i class="fa fa-shopping-basket">Sepete Ekle</i>
+            </a>
+            <a class="btn btn-success" asp-route="product" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
+                <i class="fa fa-shopping-bag"></i>
+                Hemen Al
+            </a>
+        </div>
+        <hr />
+        <div class="p-2">
+            @Html.Raw(Model.Descriptions)
+        </div>
+    </div>
+</div>
