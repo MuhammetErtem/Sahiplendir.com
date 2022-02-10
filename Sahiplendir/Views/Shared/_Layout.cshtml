@@ -18,7 +18,7 @@
                         <img src="~/content/images/newlogo.png" style="width:200px;height:46px" />
                     </a>
                 </div>
-                <div class="py-2 d-flex align-items-center" >
+                <div class="py-2 d-flex align-items-center">
                     <div class="flex-fill mr-5">
                         <form asp-action="Search" method="get" class="form-inline my-2 my-lg-0">
                             <div class="input-group">
@@ -33,6 +33,7 @@
                     </div>
                 </div>
                 <ul class="navbar-nav ml-auto">
+                    @await Component.InvokeAsync("UserBar")
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="http://www.facebook.com">
                             <i class="fa-brands fa-facebook"></i>
@@ -59,7 +60,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @await Component.InvokeAsync("RayonBar")
-                    
                 </div>
             </div>
         </nav>
@@ -68,14 +68,15 @@
         <main role="main" class="pb-3">
             @RenderBody()
 
-
             @await Component.InvokeAsync("BrandsBar")
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted py-4">
         <div class="container">
             &copy; 2021 - Sahiplendir - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            -
+            <a asp-controller="Home" asp-action="Contact">İletişim</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

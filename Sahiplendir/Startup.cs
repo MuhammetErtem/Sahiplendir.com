@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using Sahiplendir.Models;
 using Sahiplendir.Sahiplendir;
 using System;
@@ -35,7 +37,15 @@ namespace Sahiplendir
             });
 
             services.AddIdentity<User, Role>(config =>
+
             {
+                config.Tokens.AuthenticatorTokenProvider =
+                config.Tokens.PasswordResetTokenProvider =
+                config.Tokens.EmailConfirmationTokenProvider =
+                config.Tokens.ChangePhoneNumberTokenProvider =
+                config.Tokens.ChangeEmailTokenProvider = TokenOptions.DefaultEmailProvider;
+
+
                 config.Password.RequireDigit = Configuration.GetValue<bool>("App:Security:RequireDigit");
                 config.Password.RequiredLength = Configuration.GetValue<int>("App:Security:RequiredLength");
                 config.Password.RequireLowercase = Configuration.GetValue<bool>("App:Security:RequireLowercase");
@@ -48,7 +58,25 @@ namespace Sahiplendir
 
             }
                 )
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddMailKit(optionBuilder =>
+            {
+                optionBuilder.UseMailKit(new MailKitOptions()
+                {
+                    Server = Configuration.GetValue<string>("App:Smtp:Host"),
+                    Port = Configuration.GetValue<int>("App:Smtp:Port"),
+                    SenderName = Configuration.GetValue<string>("App:Smtp:SenderName"),
+                    SenderEmail = Configuration.GetValue<string>("App:Smtp:AccountName"),
+
+                    Account = Configuration.GetValue<string>("App:Smtp:AccountName"),
+                    Password = Configuration.GetValue<string>("App:Smtp:Password"),
+                    Security = true
+                });
+            });
+
+
             services.AddSingleton<UtilsService>();
         }
 
