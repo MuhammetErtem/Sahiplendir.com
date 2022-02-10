@@ -29,11 +29,17 @@ namespace Sahiplendir.Controllers
             ViewBag.Banners = await context.Banners.Where(p => p.Enabled).ToListAsync();
             return View();
         }
-
-        public IActionResult Privacy()
+        public async Task<IActionResult> Category(int id)
         {
-            return View();
+            var model = await context.Categories.Include(p => p.Rayon).Include(p => p.Products).ThenInclude(p => p.Brand).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            return View(model);
         }
+        public async Task<IActionResult> Brands(int id)
+        {
+            var model = await context.Brands.Include(p => p.Products).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            return View(model);
+        }
+
         public async Task<IActionResult> Search(string keyword)
         {
             var keywords = Regex.Split(keyword, @"\s+").ToList();
@@ -41,11 +47,15 @@ namespace Sahiplendir.Controllers
             return View(model);
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
     }
 }

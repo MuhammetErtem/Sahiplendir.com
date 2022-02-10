@@ -1,0 +1,16 @@
+﻿@model Category
+@{
+    ViewData["Title"] = Model.Name;
+
+}
+
+<h4>
+   @Model.Rayon.Name > @Model.Name
+</h4>
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var product in Model.Products)
+    {
+      <partial name="_ProductBoxPartial" model="product" />
+    }
+</div>

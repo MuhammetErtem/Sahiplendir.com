@@ -1,0 +1,18 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = Model.Name;
+
+}
+<div class="py-2">
+    <img src="@Model.SafeImage" width="120" height="120" />
+</div>
+<h4>
+    @Model.Name
+</h4>
+
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_ProductBoxPartial" model="product" />
+    }
+</div>

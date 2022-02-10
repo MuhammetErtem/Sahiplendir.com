@@ -13,31 +13,7 @@
 <div class="row row-cols-1 row-cols-md-4">
     @foreach (var product in ViewBag.FeaturedProducts as IEnumerable<Product>)
     {
-        <div class="col-12 col-md-2 mb-2">
-            <div class="card">
-                <img src="@product.SafeImage" class="card-img-top" alt="@product.Name" />
-                <div class="card-body">
-                    <h5 class="card-title" style="height:40px; overflow: hidden;">@product.Name</h5>
-                    <div style="height:40px; overflow: hidden;">
-                        @if (product.DiscountRate > 0)
-                        {
-                            <span class="text-muted h-10" style="text-decoration : line-through;">@product.Price.ToString("c2") ₺</span>
-                            <div class="bg-success text-white h9 position-absolute d-inline m-2 p-2" style="right:0">
-                                %@product.DiscountRate
-                                <div class="text-center" style="font-size: .50rem;">indirimli</div>
-                            </div>
-                        }
-
-                        <div class="text-info h4">@product.DiscountedPrice.ToString("c2") ₺</div>
-                    </div>
-                    <div class="text-center p-2">
-                        <a class="btn btn-warning" href="#">
-                            <i class="fa fa-shopping-basket">Sepete Ekle</i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <partial name="_ProductBoxPartial" model="product" />
     }
 </div>
 @section Scripts{

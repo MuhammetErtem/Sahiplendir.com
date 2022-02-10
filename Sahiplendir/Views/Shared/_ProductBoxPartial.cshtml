@@ -1,41 +1,31 @@
 ﻿@model Product
-<div class="col-12 col-md-4 mb-4">
+<div class="col-12 col-md-2 mb-2">
     <div class="card">
         <a asp-route="product" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
 
             <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name">
         </a>
         <div class="card-body">
-            <h5 class="card-title" style="height: 50px; overflow: hidden;">@Model.Name</h5>
+            <h5 class="card-title" style="height: 40px; overflow: hidden;">@Model.Name</h5>
             <div>
                 <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
                     @Model.Brand.Name
                 </a>
             </div>
-            <div>
-                <a asp-route="category" asp-route-name="@Model.Category.Name.ToSafeUrl()" asp-route-id="@Model.CategoryId">
-                    @Model.Category.Name
-                </a>
-            </div>
-            <div style="height: 70px; overflow: hidden;">
+            <div style="height: 40px; overflow: hidden;">
                 @if (Model.DiscountRate > 0)
                 {
-                    <span class="text-muted" style="text-decoration : line-through;">@Model.Price.ToString("c2")</span>
-                    <div class="bg-danger text-white h3 position-absolute d-inline m-2 p-2" style="right:0">
+                    <span class="text-muted h-10" style="text-decoration : line-through;">@Model.Price.ToString("c2") ₺</span>
+                    <div class="bg-success text-white h9 position-absolute d-inline m-2 p-2" style="right:0">
                         %@Model.DiscountRate
-                        <div class="text-center" style="font-size: .75rem;">İNDİRİM</div>
+                        <div class="text-center" style="font-size: .50rem;">indirimli</div>
                     </div>
                 }
-                <div class="text-success h4">@Model.DiscountedPrice.ToString("c2")</div>
+                <div class="text-info h4">@Model.DiscountedPrice.ToString("c2") ₺</div>
             </div>
             <div class="text-center p-2">
-                <a class="btn btn-success" href="#">
-                    <i class="fa fa-shopping-bag"></i>
-                    Sepete Ekle
-                </a>
-                <a class="btn btn-primary" asp-route="product" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
-                    <i class="fa fa-search"></i>
-                    İncele
+                <a class="btn btn-warning" href="#">
+                    <i class="fa fa-shopping-basket">Sepete Ekle</i>
                 </a>
             </div>
         </div>
