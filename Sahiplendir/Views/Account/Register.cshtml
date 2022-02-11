@@ -13,9 +13,9 @@
         <div class="col-12 col-md-6 bg-light p-4">
             @if (!ViewContext.ModelState.IsValid)
             {
-            <div class="alert alert-danger">
-                <div asp-validation-summary="ModelOnly"></div>
-            </div>
+                <div class="alert alert-danger">
+                    <div asp-validation-summary="ModelOnly"></div>
+                </div>
             }
             <div class="form-row">
                 <div class="form-group col-12 col-md-12">
@@ -49,7 +49,6 @@
                 <div class="form-group col-12 col-md-6">
                     <label asp-for="Gender"></label>
                     <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Genders>()" class="custom-select">
-                        <option selected>Cinsiyet</option>
                     </select>
                     <span asp-validation-for="Gender"></span>
                 </div>
@@ -58,9 +57,11 @@
                     <input asp-for="DateOfBirth" class="form-control" />
                     <span asp-validation-for="DateOfBirth"></span>
                 </div>
+                <div class="d-flex justify-content-between">
+                    <a class="nav-link " asp-controller="Account" asp-action="Login">Zaten bir üyeliğim var </a>
+                    <button class="btn btn-info">Kayıt</button>
+                </div>
             </div>
-            <hr />
-            <button class="btn btn-primary">Kayıt</button>
         </div>
     </div>
 </form>

@@ -85,21 +85,19 @@
                     @if (Model.ProductImages.Any())
                     {
                     <div class="p-2 border d-flex flex-wrap">
-                        @foreach (var productImage in Model.ProductImages)
+                        <!-- d-flex resimler yan yana olsun diye, flex-wrap fazla resim olunca alta insin diye koyulur-->
+                        @foreach (var item in Model.ProductImages)
                         {
                             <div class="position-relative d-inline-block">
                                 <label class="position-absolute m-1 text-danger" style="right: 0;">
-                                    <input type="checkbox" value="@productImage.Id" name="ImagesToDeleted" />
+                                    <input type="checkbox" value="@item.Id" name="ImagesToDeleted" />
                                     Sil
                                 </label>
-                                <img src="@productImage.Image" width="120" height="120" class="p-2 border" />
+                                <img src="@item.Image" width="110" height="110" class="p-2 border" />
                             </div>
                         }
                     </div>
                     }
-                    <div>
-                        <img id="previewImage" src="@Model.SafeImage" width="120" height="120" class="p-2 border" />      <!-- Yüklenen resim varsa bunu gösterir.-->
-                    </div>
                     <div id="previewGallery">
                     </div>
                     <label asp-for="ProductImages"></label>
