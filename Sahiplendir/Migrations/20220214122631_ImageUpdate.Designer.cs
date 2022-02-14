@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sahiplendir.Models;
 
 namespace Sahiplendir.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220214122631_ImageUpdate")]
+    partial class ImageUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,70 +120,6 @@ namespace Sahiplendir.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Sahiplendir.Models.Animal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descriptions")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Enabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Animals");
-                });
-
-            modelBuilder.Entity("Sahiplendir.Models.AnimalImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AnimalId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
-
-                    b.ToTable("AnimalImages");
                 });
 
             modelBuilder.Entity("Sahiplendir.Models.Banner", b =>
@@ -305,9 +243,6 @@ namespace Sahiplendir.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AnimalId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DiscountRate")
                         .HasColumnType("int");
 
@@ -325,8 +260,6 @@ namespace Sahiplendir.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
 
                     b.HasIndex("OrderId");
 
@@ -589,36 +522,6 @@ namespace Sahiplendir.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Sahiplendir.Models.Animal", b =>
-                {
-                    b.HasOne("Sahiplendir.Models.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sahiplendir.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Sahiplendir.Models.AnimalImage", b =>
-                {
-                    b.HasOne("Sahiplendir.Models.Animal", "Animal")
-                        .WithMany("AnimalImages")
-                        .HasForeignKey("AnimalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Animal");
-                });
-
             modelBuilder.Entity("Sahiplendir.Models.Category", b =>
                 {
                     b.HasOne("Sahiplendir.Models.Rayon", "Rayon")
@@ -632,10 +535,6 @@ namespace Sahiplendir.Migrations
 
             modelBuilder.Entity("Sahiplendir.Models.OrderItem", b =>
                 {
-                    b.HasOne("Sahiplendir.Models.Animal", null)
-                        .WithMany("OrderItem")
-                        .HasForeignKey("AnimalId");
-
                     b.HasOne("Sahiplendir.Models.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
@@ -681,13 +580,6 @@ namespace Sahiplendir.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Sahiplendir.Models.Animal", b =>
-                {
-                    b.Navigation("AnimalImages");
-
-                    b.Navigation("OrderItem");
                 });
 
             modelBuilder.Entity("Sahiplendir.Models.Brand", b =>

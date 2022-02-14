@@ -24,7 +24,9 @@ namespace Sahiplendir.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.FeaturedProducts = await context.Products.Include(p => p.Category).Include(p => p.Brand).Where(p => p.Enabled).OrderBy(p => Guid.NewGuid()).Take(9).ToListAsync();
+            ViewBag.FeaturedProducts = await context.Products.Include(p => p.Category).Include(p => p.Brand).Where(p => p.Enabled).OrderBy(p => Guid.NewGuid()).Take(12).ToListAsync();
+            ViewBag.FeaturedAnimals = await context.Animals.Include(p => p.Category).Include(p => p.Brand).Where(p => p.Enabled).OrderBy(p => Guid.NewGuid()).Take(6).ToListAsync();
+
             //ViewBag Controllerdaki action veriyi View'e taşımak için kullanılır.
             ViewBag.Banners = await context.Banners.Where(p => p.Enabled).ToListAsync();
             return View();
@@ -49,6 +51,11 @@ namespace Sahiplendir.Controllers
         public async Task<IActionResult> ProductDetail(int id)
         {
             var model = await context.Products.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            return View(model);
+        }
+        public async Task<IActionResult> AnimalDetail(int id)
+        {
+            var model = await context.Animals.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
             return View(model);
         }
 

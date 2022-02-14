@@ -17,6 +17,23 @@ namespace Sahiplendir.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Animal>(entity =>
+            {
+                entity
+               .HasIndex(p => new { p.Name })
+               .IsUnique(true);
+
+                entity
+                .Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(150);
+
+
+                entity
+               .Property(p => p.Image)
+               .IsRequired()
+               .IsUnicode(false);
+            });
             builder.Entity<Banner>(entity =>
             {
                 entity
@@ -147,6 +164,9 @@ namespace Sahiplendir.Models
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Rayon> Rayons { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Animal> Animals { get; set; }
+        public DbSet<AnimalImage> AnimalImages { get; set; }
 
     }
 }

@@ -13,14 +13,14 @@ using X.PagedList;
 namespace Sahiplendir.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductsController : Controller
+    public class AnimalsController : Controller
     {
         private readonly AppDbContext context;
         private readonly UtilsService utilsService;
         private readonly string entityName = "Ürün";
 
 
-        public ProductsController(AppDbContext context, UtilsService utilsService)
+        public AnimalsController(AppDbContext context, UtilsService utilsService)
         {
             this.context = context;
             this.utilsService = utilsService;
@@ -37,38 +37,36 @@ namespace Sahiplendir.Areas.Admin.Controllers
 
         public IActionResult Index(int? page)
         {
-            var model = context.Products.Include(p => p.Category).ThenInclude(p => p.Rayon).ToList().ToPagedList(page ?? 1, 10);
+            var model = context.Animals.Include(p => p.Category).ThenInclude(p => p.Rayon).ToList().ToPagedList(page ?? 1, 10);
             return View(model);
         }
 
         public async Task<IActionResult> Create()
         {
             await PopulateDropdowns();
-            var model = new Product { Enabled = true };
+            var model = new Animal { Enabled = true };
             return View(model);
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product model)
+        public async Task<IActionResult> Create(Animal model)
         {
             model.Image = await utilsService.PrepareImage(model.ImageFile?.OpenReadStream(), 800, 800, false);
             if (model.ImageFiles is not null)
 
                 foreach (var imageFile in model.ImageFiles)
 
-                    model.ProductImages.Add
+                    model.AnimalImages.Add
                         (
-                        new ProductImage { Image = await utilsService.PrepareImage(imageFile.OpenReadStream(), 800, 800, true) }
+                        new AnimalImage { Image = await utilsService.PrepareImage(imageFile.OpenReadStream(), 800, 800, true) }
                         );
-
-            model.Price = decimal.Parse(model.PriceText, CultureInfo.CreateSpecificCulture("tr-TR")); //Giren kullanıcının pc'sini türkçe kültürüne çevirerek göster.
 
             model.DateCreated = DateTime.Now;
 
 
-            context.Products.Add(model);
+            context.Animals.Add(model);
             try
             {
                 await context.SaveChangesAsync();
@@ -85,32 +83,29 @@ namespace Sahiplendir.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             await PopulateDropdowns();
-            var model = await context.Products.Include(p => p.ProductImages).SingleAsync(p => p.Id == id);
-            model.PriceText = model.Price.ToString("n2", CultureInfo.CreateSpecificCulture("tr-TR"));
+            var model = await context.Animals.Include(p => p.AnimalImages).SingleAsync(p => p.Id == id);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product model)
+        public async Task<IActionResult> Edit(Animal model)
         {
             {
                 utilsService.AddImage(model, new ResizeImageOptions { Width = 800, Height = 800, Watermark = false });
                 if (model.ImageFiles is not null)
                     foreach (var imageFile in model.ImageFiles)
-                        model.ProductImages.Add(
-                            new ProductImage { Image = await utilsService.PrepareImage(imageFile.OpenReadStream(), 800, 800, false) }
+                        model.AnimalImages.Add(
+                            new AnimalImage { Image = await utilsService.PrepareImage(imageFile.OpenReadStream(), 800, 800, false) }
                             );
 
                 if (model.ImagesToDeleted is not null)
                 {
                     foreach (var item in model.ImagesToDeleted)
                     {
-                        var productImage = await context.ProductImages.FindAsync(item);
-                        context.Remove(productImage);
+                        var animalImage = await context.AnimalImages.FindAsync(item);
+                        context.Remove(animalImage);
                     }
                 }
-                model.Price = decimal.Parse(model.PriceText, CultureInfo.CreateSpecificCulture("tr-TR"));//Giren kullanıcının pc'sini türkçe kültürüne çevirerek göster.
-
                 context.Update(model);
                 try
                 {
@@ -130,7 +125,7 @@ namespace Sahiplendir.Areas.Admin.Controllers
         }
                 public async Task<IActionResult> Delete(int id)
                 {
-                    var model = await context.Products.FindAsync(id);
+                    var model = await context.Animals.FindAsync(id);
                     context.Remove(model);
                     try
                     {

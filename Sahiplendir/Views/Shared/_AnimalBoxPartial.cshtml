@@ -1,0 +1,21 @@
+﻿@model Animal
+<div class="col-12 col-md-2 mb-2">
+    <div class="card">
+        <a asp-route="animal" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
+            <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title" style="height: 40px; overflow: hidden;">@Model.Name</h5>
+            <div>
+                <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
+                    @Model.Brand.Name
+                </a>
+            </div>
+            <div class="text-center p-2">
+                <a class="btn btn-success" href="#">
+                    <i class="fa fa-shopping-basket">Sahiplen</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

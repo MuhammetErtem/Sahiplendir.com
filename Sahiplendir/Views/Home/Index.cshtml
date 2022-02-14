@@ -5,7 +5,7 @@
 <div id="slider" class="row mb-4" style="width:1140px; height: 377px; max-height: 377px; overflow: hidden;">
     @foreach (var banner in ViewBag.Banners as IEnumerable<Banner>)
     {
-        <div class="col-12 d-none position-absolute" style="width:1140px; height: 377px; max-height: 377px; overflow: hidden;">
+        <div class="col-1-2 d-none position-absolute" style="width:1140px; height: 377px; max-height: 377px; overflow: hidden;">
             <img src="@banner.SafeImage" class="w-100" />
         </div>
     }
@@ -14,6 +14,13 @@
     @foreach (var product in ViewBag.FeaturedProducts as IEnumerable<Product>)
     {
         <partial name="_ProductBoxPartial" model="product" />
+    }
+</div>
+<hr />
+<div class="row row-cols-1 row-cols-md-4">
+    @foreach (var animal in ViewBag.FeaturedAnimals as IEnumerable<Animal>)
+    {
+        <partial name="_AnimalBoxPartial" model="animal" />
     }
 </div>
 

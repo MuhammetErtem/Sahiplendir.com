@@ -1,5 +1,8 @@
-﻿$primary: #BFD51B;
-$info: #683182;
+﻿$primary: #683182;
+$info: #ce93d8;
+//#BFD51B
+
+
 $succes: #0fb816 ;
 $enable-rounded : false;
 $font-size-base: .85rem;
@@ -14,9 +17,9 @@ body {
     @extend .text-danger;
 }
 [class*="sidebar-light"] .brand-link {
-    border-bottom: 1px solid #BFD51B;
+    border-bottom: 1px solid #683182;
 }
 
 .card-header {
-    border-bottom: 1px solid #BFD51B;
+    border-bottom: 1px solid #683182;
 }

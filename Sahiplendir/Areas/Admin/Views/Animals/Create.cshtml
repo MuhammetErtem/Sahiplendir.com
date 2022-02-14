@@ -1,11 +1,11 @@
-﻿@model Product
+﻿@model Animal
 
 <form method="post" enctype="multipart/form-data">
     <div class="card card-default card-outline">
         <div class="card-header">
             <div class="card-title">
                 <i class="fa fa-pencil"></i>
-                Ürün Ekleme
+                Hayvan Ekleme
             </div>
             <div class="card-tools">
                 <a asp-action="Index" class="btn btn-default">İptal</a>
@@ -37,17 +37,6 @@
                     <label asp-for="Name"></label>
                     <input class="form-control" asp-for="Name">
                     <span asp-validation-for="Name"></span>
-                </div>
-                <div class="form-group col-12 col-md-3">
-                    <label asp-for="PriceText"></label>
-                    <input class="form-control" asp-for="PriceText">
-                    <span asp-validation-for="PriceText"></span>
-                </div>
-
-                <div class="form-group col-12 col-md-3">
-                    <label asp-for="DiscountRate"></label>
-                    <input class="form-control" asp-for="DiscountRate">
-                    <span asp-validation-for="DiscountRate"></span>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 col-md-6">
@@ -81,7 +70,7 @@
                         </div>
                         <div id="previewGallery">
                         </div>
-                        <label asp-for="ProductImages"></label>
+                        <label asp-for="AnimalImages"></label>
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" accept="image/*" multiple id="ProductImages" name="ImageFiles">
                             <label class="custom-file-label" for="ProductImages" data-browse="Gözat">Görsel dosyaları seçiniz</label>
@@ -113,13 +102,6 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
-                    <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" />
-                    <span asp-validation-for="DateCreated" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-12 col-md-6">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" asp-for="Enabled">
                         <label class="custom-control-label" for="Enabled" asp-for="Enabled"></label>
@@ -145,14 +127,14 @@
                 };
                 r.readAsDataURL($('#ImageFile')[0].files[0]);
             }); //Resim yükleme yapar. 53.Satırı kopyalayıp kullanılır.
-            $('#ProductImages').change((e) => {
+            $('#AnimalImages').change((e) => {
                 $('#previewGallery').html('');
-                for (var i = 0; i < $('#ProductImages')[0].files.length; i++) {
+                for (var i = 0; i < $('#AnimalImages')[0].files.length; i++) {
                     const r = new FileReader();
                     r.onloadend = (evt) => {
                         $('#previewGallery').append(`<img src="${evt.currentTarget.result}" width="80" height="80" class="p-2 border" />`);
                     };
-                    r.readAsDataURL($('#ProductImages')[0].files[i]);
+                    r.readAsDataURL($('#AnimalImages')[0].files[i]);
                 }
             }); //Yüklenen resmi değiştirmek istediğinde öncekini silip yerine yenilerini eklemeye yarıyor. 78.Satırı kopyalayıp kullanılır.
             $('#Descriptions').summernote({

@@ -18,10 +18,10 @@
                         <img src="~/content/images/newlogo.png" style="width:200px;height:46px" />
                     </a>
                 </div>
-                <div class="py-2 d-flex align-items-center">
-                    <div class="flex-fill mr-5">
-                        <form asp-action="Search" method="get" class="form-inline my-2 my-lg-0">
-                            <div class="input-group">
+                <div class="py-2 d-flex"  style="border-radius: 8px;">
+                    <div class="flex-fill  justify-content-between mr-5" >
+                        <form asp-action="Search" method="get" class="form-inline my-2 my-lg-2">
+                            <div class="input-group ml-5">
                                 <input type="search" name="keyword" placeholder="Arama" value="@Context.Request.Query["keyword"]" class="form-control" />
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-warning">

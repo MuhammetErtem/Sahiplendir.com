@@ -1,17 +1,20 @@
-﻿@model IEnumerable<Banner>
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+
+@model IEnumerable<Animal>
 @{
 }
-<div class="p-2 border text-right">
+<div class="p-2 border bg-light text-right">
     <a asp-action="Create" class="btn btn-primary">
         <i class="fa fa-plus text-light">
             Yeni Kayıt
         </i>
     </a>
 </div>
-
 <div class="card card-primary">
     <div class="card-header">
-        <div class="card-title">Görsel Listesi</div>
+        <div class="card-title">Sahiplendirme Listesi</div>
     </div>
     <div class="card-body">
         <table class="table">
@@ -19,6 +22,16 @@
                 <tr>
                     <th>
                         Görsel
+                    </th>
+
+                    <th>
+                        Reyon/Kategori
+                    </th>
+                    <th>
+                        Ad
+                    </th>
+                    <th>
+                        Fiyat
                     </th>
                     <th>
                         Durum
@@ -34,7 +47,15 @@
                 {
                     <tr>
                         <td>
-                            <img src="@item.Image" width="192" height="48" />
+
+                            <img src="@item.Image" width="50" height="50" />
+                        </td>
+                        <td>@item.Category.Rayon.Name / @item.Category.Name</td>
+
+
+                        <td>@item.Name</td>
+                        <td>
+                            ÜCRETSİZ
                         </td>
                         <td>
                             @if (item.Enabled)
@@ -75,3 +96,4 @@
 @section scripts {
     <partial name="_RemoveConfirmationPartial" />
 }
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), Extensions.PagedListRenderOptions)
