@@ -7,11 +7,6 @@
     <div class="col-12 col-md-6 p-2 border-right">
         <img src="@Model.SafeImage" class="img-fluid" />
     </div>
-    <div id="previewGallery" class="col-12 col-md-6 p-2 border-right">
-        @foreach (var productImage in Model.ProductImages)
-        {
-            <img src="@productImage.Image" width="120" height="120" class="p-2 border" />}
-    </div>
     <div class="col-12 col-md-6 p-2 bg-light">
         <h2>@Model.Name</h2>
         <div>
@@ -43,5 +38,10 @@
         <div class="p-2">
             @Html.Raw(Model.Descriptions)
         </div>
+    </div>
+    <div id="previewGallery" class="col-12 col-md-6 p-2 border-right">
+        @foreach (var productImage in Model.ProductImages)
+        {
+            <img src="@productImage.Image" width="120" height="120" class="p-2 border" />}
     </div>
 </div>

@@ -162,8 +162,9 @@ namespace Sahiplendir.Models
 
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        public DbSet<Product> Products { get; set; }
         public DbSet<Rayon> Rayons { get; set; }
+
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<AnimalImage> AnimalImages { get; set; }

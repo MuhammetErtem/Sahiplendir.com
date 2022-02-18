@@ -16,3 +16,9 @@
         <partial name="_ProductBoxPartial" model="product" />
     }
 </div>
+<div class="row row-cols-1 row-cols-md-3">
+    @foreach (var animal in Model.Animals)
+    {
+        <partial name="_AnimalBoxPartial" model="animal" />
+    }
+</div>

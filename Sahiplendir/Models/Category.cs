@@ -17,5 +17,7 @@ namespace Sahiplendir.Models
         public Rayon Rayon { get; set; }
 
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<Animal> Animals { get; set; } = new HashSet<Animal>();
+
     }
 }

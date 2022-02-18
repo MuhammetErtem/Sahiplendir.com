@@ -1,32 +1,33 @@
 ﻿@model Product
-    <div class="col-12 col-md-2 mb-2">
-        <div class="card">
-            <a asp-route="product" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
-                <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name" height="120">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title" style="height: 40px; overflow: hidden;">@Model.Name</h5>
-                <div>
-                    <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
-                        @Model.Brand.Name
-                    </a>
-                </div>
-                <div style="height: 40px; overflow: hidden;">
-                    @if (Model.DiscountRate > 0)
-                    {
-                        <span class="text-muted h-10 " style="text-decoration: line-through;">@Model.Price.ToString("c2") ₺</span>
-                        <div class="bg-success text-white h9 position-absolute d-inline m-1 p-2" style="right: 0; border-radius: 8px;">
-                            %@Model.DiscountRate
-                            <div class="text-center" style="font-size: .50rem;">indirimli</div>
-                        </div>
-                    }
-                    <div class="text-info h4">@Model.DiscountedPrice.ToString("c2") ₺</div>
-                </div>
-                <div class="text-center p-2">
-                    <a class="btn btn-warning" href="#">
-                        <i class="fa fa-shopping-basket">Sepete Ekle</i>
-                    </a>
-                </div>
+<div class="col-12 col-md-2 mb-2">
+    <div class="card">
+        <a asp-route="product" asp-route-name="@Model.Name.ToSafeUrl()" asp-route-id="@Model.Id">
+            <img src="@Model.SafeImage" class="card-img-top" alt="@Model.Name" height="120">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title" style="height: 40px; overflow: hidden;">@Model.Name</h5>
+            <div>
+                <a asp-route="brand" asp-route-name="@Model.Brand.Name.ToSafeUrl()" asp-route-id="@Model.BrandId">
+                    @Model.Brand.Name
+                </a>
+            </div>
+            <div style="height: 40px; overflow: hidden;">
+                @if (Model.DiscountRate > 0)
+                {
+                    <span class="text-danger h-10 " style="text-decoration: line-through;">@Model.Price.ToString("c2") ₺</span>
+                    <div class="bg-success text-white h9 position-absolute d-inline m-1 p-2" style="right: 0; border-radius: 8px;">
+                        %@Model.DiscountRate
+                        <div class="text-center" style="font-size: .50rem;"></div>
+                    </div>
+                }
+                <div class="text-success h4">@Model.DiscountedPrice.ToString("c2") ₺</div>
+            </div>
+            <div class="text-center p-2">
+                <a class="btn btn-warning text-light" href="#">
+                    <i class="fa fa-shopping-bag"></i>
+                    Sepete Ekle
+                </a>
             </div>
         </div>
     </div>
+</div>

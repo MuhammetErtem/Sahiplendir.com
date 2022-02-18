@@ -123,6 +123,12 @@ namespace Sahiplendir
                     );
                 endpoints
                 .MapControllerRoute(
+                    name: "animal",
+                    pattern: "{name}-u-{id}.html",
+                    defaults: new { controller = "Home", action = "AnimalDetail" }
+                    );
+                endpoints
+                .MapControllerRoute(
                     name: "brand",
                     pattern: "{name}-m-{id}.html",
                     defaults: new { controller = "Home", action = "Brands" }

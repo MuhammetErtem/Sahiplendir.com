@@ -33,13 +33,18 @@ namespace Sahiplendir.Controllers
         }
         public async Task<IActionResult> Category(int id)
         {
-            var model = await context.Categories.Include(p => p.Rayon).Include(p => p.Products).ThenInclude(p => p.Brand).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            var model = await context.Categories.Include(p => p.Rayon).Include(p => p.Animals).ThenInclude(p => p.Brand).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            var category = await context.Categories.Include(p => p.Rayon).Include(p => p.Products).ThenInclude(p => p.Brand).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+
             return View(model);
         }
         public async Task<IActionResult> Brands(int id)
         {
-            var model = await context.Brands.Include(p => p.Products).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            var model = await context.Brands.Include(p => p.Animals).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            var brand = await context.Brands.Include(p => p.Products).ThenInclude(p => p.Category).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+
             return View(model);
+
         }
         
         public async Task<IActionResult> Search(string keyword)
@@ -48,16 +53,18 @@ namespace Sahiplendir.Controllers
             var model = context.Products.Include(p => p.Brand).Include(p => p.Category).AsEnumerable().Where(p => keywords.Any(q => p.Name.ToLower().Contains(q.ToLower()))).ToList();
             return View(model);
         }
-        public async Task<IActionResult> ProductDetail(int id)
-        {
-            var model = await context.Products.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
-            return View(model);
-        }
         public async Task<IActionResult> AnimalDetail(int id)
         {
             var model = await context.Animals.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
             return View(model);
         }
+        public async Task<IActionResult> ProductDetail(int id)
+        {
+            var model = await context.Products.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
+            return View(model);
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

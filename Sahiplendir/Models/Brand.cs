@@ -17,6 +17,8 @@ namespace Sahiplendir.Models
         public IFormFile ImageFile { get; set; }
 
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<Animal> Animals { get; set; } = new HashSet<Animal>();
+
 
         public string SafeImage => Image ?? "/content/images/no-image.png";
     }

@@ -16,12 +16,12 @@ namespace Sahiplendir.Models
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int CategoryId { get; set; }
 
-        [Display(Name = "Marka")]
+        [Display(Name = "Kullanıcı")]
         [Required(ErrorMessage = "{0} alanı boş bırakılamaz!")]
         public int BrandId { get; set; }
 
 
-        [Display(Name = "Ürün Ana Görsel")]
+        [Display(Name = "Hayvan Ana Görsel")]
         public string Image { get; set; }
 
         [Display(Name = "Açıklamalar")]
@@ -40,7 +40,7 @@ namespace Sahiplendir.Models
         public Brand Brand { get; set; }
 
         public ICollection<OrderItem> OrderItem { get; set; } = new HashSet<OrderItem>();
-        [Display(Name = "Ürün Yan Görselleri")]
+        [Display(Name = "Hayvan Yan Görselleri")]
         public ICollection<AnimalImage> AnimalImages { get; set; } = new HashSet<AnimalImage>();
 
 
