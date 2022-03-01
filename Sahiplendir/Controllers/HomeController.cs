@@ -63,9 +63,6 @@ namespace Sahiplendir.Controllers
             var model = await context.Products.Include(p => p.Brand).Include(p => p.Category).ThenInclude(p => p.Rayon).SingleOrDefaultAsync(p => p.Id == id && p.Enabled);
             return View(model);
         }
-
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -75,6 +72,5 @@ namespace Sahiplendir.Controllers
         {
             return View();
         }
-
     }
 }

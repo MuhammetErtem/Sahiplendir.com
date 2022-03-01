@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +10,6 @@ using NETCore.MailKit.Infrastructure.Internal;
 using Sahiplendir.Models;
 using Sahiplendir.Sahiplendir;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sahiplendir
 {
@@ -104,8 +100,8 @@ namespace Sahiplendir
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication(); //Kimlik yetkilendirme
+            app.UseAuthorization(); // Kimlik doðrulama
 
             app.UseEndpoints(endpoints =>
             {

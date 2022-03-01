@@ -9,8 +9,7 @@ namespace Sahiplendir.Models
 {
     public class AppDbContext : IdentityDbContext<User, Role, int>
     {
-        public AppDbContext(DbContextOptions options)
-            : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
 
         }
